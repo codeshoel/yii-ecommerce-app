@@ -2,10 +2,14 @@
 
 use yii\helpers\Html;
 use yii\bootstrap5\ActiveForm;
+use dosamigos\ckeditor\CKEditor;
 
 /** @var yii\web\View $this */
 /** @var common\models\Product $model */
 /** @var yii\widgets\ActiveForm $form */
+
+
+
 ?>
 
 <div class="product-form">
@@ -14,13 +18,23 @@ use yii\bootstrap5\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'description')->widget(CKEditor::class, [
+        'options' => ['rows' => 6],
+        'preset' => 'basic'
+    ]) ?>
 
-    <?= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
+    <div class="col-md-3">
+        <?= $form->field($model, 'image')->fileInput(['maxlength' => true]) ?>
+    </div>
 
-    <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
+    <div class="col-md-3">
+        <?= $form->field($model, 'price')->textInput([
+            'maxlength' => true,
+            'type' => 'number'
+        ]) ?>
+    </div>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    <?= $form->field($model, 'status')->checkbox() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
